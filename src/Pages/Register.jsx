@@ -13,6 +13,22 @@ function Register() {
       username: "",
       password: "",
     },
+    validate: (values) => {
+      let errors = {};
+      if (!values.username) {
+        errors.username = "Please enter username";
+      }
+      if (!values.password) {
+        errors.password = "Please enter password";
+      }
+      if (!values.email) {
+        errors.email = "Please enter username";
+      }
+      if (!values.name) {
+        errors.name = "Please enter password";
+      }
+      return errors;
+    },
     onSubmit: async (values) => {
       try {
         const res = await axios.post(`${config.api}/api/auth/register`, values);

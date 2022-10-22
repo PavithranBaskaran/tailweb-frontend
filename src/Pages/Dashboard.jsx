@@ -13,10 +13,11 @@ function Dashboard() {
 
   let fetchData = async () => {
     try {
-      let res = await axios.get(`${config.api}/api/student/dashboard`,{ headers: {
+      let res = await axios.get(`${config.api}/api/student/dashboard/${localStorage.getItem('userid')}`,{ headers: {
         Authorization: `${localStorage.getItem("react_app_token")}`,
       },});
       setStudents(res.data);
+      console.log(students)
     } catch (error) {
       console.log(error);
     }

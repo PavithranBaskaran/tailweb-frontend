@@ -7,7 +7,7 @@ function AddStudent({ students, setStudents }) {
   // let [students, setStudents] = useState([]);
   let fetchData = async () => {
     try {
-      let res = await axios.get(`${config.api}/api/student/dashboard`, {
+      let res = await axios.get(`${config.api}/api/student/dashboard/${localStorage.getItem('userid')}`, {
         headers: {
           Authorization: `${localStorage.getItem("react_app_token")}`,
         },
@@ -22,11 +22,23 @@ function AddStudent({ students, setStudents }) {
       name: "",
       subject: "",
       mark: "",
+    }, validate: (values) => {
+      let errors = {};
+      if (!values.name) {
+        errors.name = "Please enter username";
+      }
+      if (!values.subject) {
+        errors.subject = "Please enter password";
+      }
+      if (!values.mark) {
+        errors.mark = "Please enter password";
+      }
+      return errors;
     },
     onSubmit: async (values) => {
       try {
         let res = await axios.post(
-          `${config.api}/api/student/add-student`,
+          `${config.api}/api/student/add-student/${localStorage.getItem('userid')}`,
           values,
           {
             headers: {

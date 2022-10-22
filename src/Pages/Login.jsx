@@ -11,15 +11,26 @@ function Login() {
       username: "",
       password: "",
     },
+    validate: (values) => {
+      let errors = {};
+      if (!values.username) {
+        errors.username = "Please enter username";
+      }
+      if (!values.password) {
+        errors.password = "Please enter password";
+      }
+      return errors;
+    },
     onSubmit: async (values) => {
       try {
         const res = await axios.post(`${config.api}/api/auth/`, values);
         alert(res.data.message);
-        
+        console.log(res.data.user)
         if (res.data.message === "Successfully logged in!") {
           localStorage.setItem('username',values.username)
           localStorage.setItem("react_app_token", res.data.token);
-          navigate("/dashboard");
+          localStorage.setItem('userid',res.data.user._id)
+          navigate(`/dashboard/${localStorage.getItem('userid')}`);
         }
         // localStorage.setItem("react_app_token",res.data.token)
       } catch (error) {

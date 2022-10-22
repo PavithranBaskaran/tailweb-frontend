@@ -7,7 +7,7 @@ function ViewStudent({ propId ,setStudents }) {
   let [stu, setStudent] = useState([]);
 
   let handleView = async () => {
-    let res = await axios.get(`${config.api}/api/student/${propId}`,{ headers: {
+    let res = await axios.get(`${config.api}/api/student/${localStorage.getItem('userid')}/${propId}`,{ headers: {
       Authorization: `${localStorage.getItem("react_app_token")}`,
     },});
     // console.log(res.data);
@@ -25,10 +25,23 @@ function ViewStudent({ propId ,setStudents }) {
       mark: "",
       subject: "",
     },
+    validate: (values) => {
+      let errors = {};
+      if (!values.name) {
+        errors.name = "Please enter username";
+      }
+      if (!values.subject) {
+        errors.subject = "Please enter password";
+      }
+      if (!values.mark) {
+        errors.mark = "Please enter password";
+      }
+      return errors;
+    },
     onSubmit: async (values) => {
       try {
         let res = await axios.put(
-          `${config.api}/api/student/${propId}`,
+          `${config.api}/api/student/${localStorage.getItem('userid')}/${propId}`,
           values,{headers: {
             Authorization: `${localStorage.getItem("react_app_token")}`,
           }}

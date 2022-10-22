@@ -5,7 +5,8 @@ function Navbar() {
   let navigate = useNavigate();
   let handleLogout = () => {
     navigate("/");
-    localStorage.removeItem("react_app_token");
+    // localStorage.removeItem("react_app_token");
+    localStorage.clear()
   };
   let navUser = localStorage.getItem("username");
   return (

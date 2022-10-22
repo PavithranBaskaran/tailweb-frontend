@@ -4,15 +4,25 @@ import { config } from "../config";
 import ViewStudent from "./ViewStudent";
 
 function Table({ headings, students, setStudents, filterKey }) {
+  
+  if (students.message == "No Data") {
+    students = [];
+  }
+  // setStudents(students)
+  console.log(students)
   let data = [];
+  let [Students , SetStudents] = useState([])
+  // SetStudents([students])
   let [stuId, setStuId] = useState("");
   let handleDelete = async (id) => {
     try {
-      let res = await axios.delete(`${config.api}/api/student/${id}`,{ headers: {
-        Authorization: `${localStorage.getItem("react_app_token")}`,
-      },});
+      let res = await axios.delete(`${config.api}/api/student/${localStorage.getItem('userid')}/${id}`, {
+        headers: {
+          Authorization: `${localStorage.getItem("react_app_token")}`,
+        },
+      });
       alert(res.data.message);
-      setStudents(res.data.students)
+      setStudents(res.data.students);
     } catch (error) {
       console.log(error);
     }
