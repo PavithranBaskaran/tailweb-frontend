@@ -1,3 +1,3 @@
 export const config = {
-    api : 'http://localhost:3001'
+    api : 'https://pavi-tailweb-backend.vercel.app'
 }
